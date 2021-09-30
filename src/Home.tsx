@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Countdown from "react-countdown";
-import { Button, CircularProgress, Snackbar } from "@material-ui/core";
+import { Button, CircularProgress, Snackbar,withStyles} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+
 
 import * as anchor from "@project-serum/anchor";
 
@@ -16,16 +17,87 @@ import {
   awaitTransactionSignatureConfirmation,
   getCandyMachineState,
   mintOneToken,
-  shortenAddress,
+ 
+  
 } from "./candy-machine";
 
-const ConnectButton = styled(WalletDialogButton)``;
+import logo from './logo.gif'
 
-const CounterText = styled.span``; // add your styles here
+const NavBar=styled.nav`
+height: 85px;
+display: flex;
+justify-content: space-between;
+z-index: 12;
+padding:  30px;
+font-weight :  1000;
+font-size : 50px;
 
-const MintContainer = styled.div``; // add your styles here
+@media screen and (max-width: 768px) {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding:  30px;
+font-weight :  1000;
+font-size : 30px;
+}
 
-const MintButton = styled(Button)``; // add your styles here
+`
+
+const ConnectButton = styled(WalletDialogButton)`
+height : 50px;
+`;
+
+const CounterText = styled.span`
+overflow : hidden;
+`; // add your styles here
+
+const MintContainer = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding:  50px;
+font-weight :  1000;
+font-size : 30px;
+`; // add your styles here
+
+const MintButton = withStyles({
+  root: {
+    background: 'black',
+    borderRadius: 3,
+    border: 0,
+    color: '#ffbedf;;',
+    height: 48,
+    width : 300,
+    fontSize : '20px',
+    overflow :'hidden',
+    fontWeight : 1000,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(Button); // add your styles here
+
+const TextHeader=styled.h4`
+
+font-weight :  800;
+font-size : 20px;
+`
+//eslint-disable-next-line
+const SecondryDiv=styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-weight :  1000;
+font-size : 30px;
+
+`
+
+
 
 export interface HomeProps {
   candyMachineId: anchor.web3.PublicKey;
@@ -47,11 +119,18 @@ const Home = (props: HomeProps) => {
     message: "",
     severity: undefined,
   });
-
+  // eslint-disable-next-line
+  const [rItems,setrItems] = useState<number>();
+  const [redmeed,setItemRedeemed] = useState<number>();
+  const [available,setItemsAvailable]=useState<number>();
+  //eslint-disable-next-line
+  const [progress,setPercentNow]=useState<number>();
   const [startDate, setStartDate] = useState(new Date(props.startDate));
 
   const wallet = useWallet();
   const [candyMachine, setCandyMachine] = useState<CandyMachine>();
+
+  
 
   const onMint = async () => {
     try {
@@ -101,6 +180,7 @@ const Home = (props: HomeProps) => {
           message = `SOLD OUT!`;
           setIsSoldOut(true);
         } else if (error.code === 312) {
+         
           message = `Minting period hasn't started yet.`;
         }
       }
@@ -145,37 +225,44 @@ const Home = (props: HomeProps) => {
         signTransaction: wallet.signTransaction,
       } as anchor.Wallet;
 
-      const { candyMachine, goLiveDate, itemsRemaining } =
+      const { candyMachine, goLiveDate, itemsRemaining,itemsRedeemed,itemsAvailable} =
         await getCandyMachineState(
           anchorWallet,
           props.candyMachineId,
           props.connection
-        );
-
+        );  
+      setrItems(itemsRemaining);
+      setItemRedeemed(itemsRedeemed)
+      setItemsAvailable(itemsAvailable)
       setIsSoldOut(itemsRemaining === 0);
       setStartDate(goLiveDate);
       setCandyMachine(candyMachine);
+      setPercentNow(itemsRedeemed/itemsAvailable*100);
+
     })();
   }, [wallet, props.candyMachineId, props.connection]);
+  
+  
 
   return (
     <main>
-      {wallet.connected && (
-        <p>Address: {shortenAddress(wallet.publicKey?.toBase58() || "")}</p>
-      )}
+      <NavBar>APEXDUCKS ™
 
-      {wallet.connected && (
-        <p>Balance: {(balance || 0).toLocaleString()} SOL</p>
-      )}
-
+      {!wallet.connected ?(<ConnectButton>Connect Wallet</ConnectButton>): (<ConnectButton disabled><TextHeader>{balance} SOL</TextHeader></ConnectButton>)}
+      
+      </NavBar>
+      <SecondryDiv> <img src={logo} alt='apexducks logo' /></SecondryDiv>
+      
       <MintContainer>
-        {!wallet.connected ? (
-          <ConnectButton>Connect Wallet</ConnectButton>
-        ) : (
-          <MintButton
+        
+      {wallet.connected  && (<TextHeader> {redmeed} / {available} NFTs Minted </TextHeader>)}
+
+        {wallet.connected  && (
+          <MintButton 
             disabled={isSoldOut || isMinting || !isActive}
             onClick={onMint}
             variant="contained"
+            color="primary"
           >
             {isSoldOut ? (
               "SOLD OUT"
@@ -192,10 +279,16 @@ const Home = (props: HomeProps) => {
                 onComplete={() => setIsActive(true)}
                 renderer={renderCounter}
               />
+              
             )}
           </MintButton>
-        )}
+        )}          
+        
+        
+       
+        
       </MintContainer>
+     
 
       <Snackbar
         open={alertState.open}
@@ -222,7 +315,7 @@ interface AlertState {
 const renderCounter = ({ days, hours, minutes, seconds, completed }: any) => {
   return (
     <CounterText>
-      {hours} hours, {minutes} minutes, {seconds} seconds
+    {days} : {hours} : {minutes} : {seconds}
     </CounterText>
   );
 };

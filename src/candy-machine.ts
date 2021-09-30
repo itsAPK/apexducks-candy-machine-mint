@@ -176,6 +176,7 @@ export const getCandyMachineState = async (
   const itemsAvailable = state.data.itemsAvailable.toNumber();
   const itemsRedeemed = state.itemsRedeemed.toNumber();
   const itemsRemaining = itemsAvailable - itemsRedeemed;
+  
 
   let goLiveDate = state.data.goLiveDate.toNumber();
   goLiveDate = new Date(goLiveDate * 1000);
@@ -186,6 +187,7 @@ export const getCandyMachineState = async (
     itemsRedeemed,
     itemsRemaining,
     goLiveDate,
+    
   };
 }
 
@@ -204,6 +206,8 @@ const getMasterEdition = async (
     )
   )[0];
 };
+
+
 
 const getMetadata = async (
   mint: anchor.web3.PublicKey
@@ -243,6 +247,8 @@ export const mintOneToken = async (
   const { connection, program } = candyMachine;
   const metadata = await getMetadata(mint.publicKey);
   const masterEdition = await getMasterEdition(mint.publicKey);
+
+  
 
   const rent = await connection.getMinimumBalanceForRentExemption(
     MintLayout.span
@@ -299,9 +305,7 @@ export const mintOneToken = async (
   });
 }
 
-export const shortenAddress = (address: string, chars = 4): string => {
-  return `${address.slice(0, chars)}...${address.slice(-chars)}`;
-};
+
 
 const sleep = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms));

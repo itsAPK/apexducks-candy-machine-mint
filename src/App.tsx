@@ -10,6 +10,7 @@ import {
   getPhantomWallet,
   getSolflareWallet,
   getSolletWallet,
+  
 } from "@solana/wallet-adapter-wallets";
 
 import {
@@ -60,6 +61,7 @@ const App = () => {
             treasury={treasury}
             txTimeout={txTimeout}
           />
+          
         </WalletDialogProvider>
       </WalletProvider>
     </ConnectionProvider>
