@@ -1,6 +1,6 @@
-# Candy-Machine-Mint
+# ApexDucks-Candy-Machine-Mint
 
-The Candy-Machine-Mint project is designed to let users fork, customize, and deploy their own candy machine mint app to a custom domain, ultra fast.
+Fork of [exiled-apes/candy-machine-mint](https://github.com/exiled-apes/candy-machine-mint) for [ApexDucks](https://apexducks.io) NFT
 
 A candy machine is an on-chain Solana program (or smart contract) for managing fair mint. Fair mints:
 * Start and finish at the same time for everyone.
