@@ -1,4 +1,4 @@
-# Candy-Machine-Mint
+# ApexDucks-Candy-Machine-Mint
 
 Fork of [exiled-apes/candy-machine-mint](https://github.com/exiled-apes/candy-machine-mint) for [ApexDucks](https://apexducks.io) NFT
 
