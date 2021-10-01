@@ -1,6 +1,6 @@
 # Candy-Machine-Mint
 
-Fork of (exiled-apes/candy-machine-mint)[https://github.com/exiled-apes/candy-machine-mint] for (ApexDucks)[https://apexducks.io] NFT
+Fork of [exiled-apes/candy-machine-mint](https://github.com/exiled-apes/candy-machine-mint) for [ApexDucks](https://apexducks.io) NFT
 
 A candy machine is an on-chain Solana program (or smart contract) for managing fair mint. Fair mints:
 * Start and finish at the same time for everyone.
