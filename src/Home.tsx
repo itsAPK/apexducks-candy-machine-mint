@@ -21,7 +21,7 @@ import {
   
 } from "./candy-machine";
 
-import logo from './logo.gif'
+import logo from './logo.png'
 
 const NavBar=styled.nav`
 height: 85px;
@@ -43,10 +43,26 @@ font-size : 30px;
 }
 
 `
+ // add your styles here
 
-const ConnectButton = styled(WalletDialogButton)`
-height : 50px;
-`;
+const ConnectButton = withStyles({
+  root: {
+    background: '#000000',
+    borderRadius: 5,
+    border: 2,
+    
+    height: 48,
+    fontSize : '15px',
+    overflow :'hidden',
+    fontWeight : 1000,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(WalletDialogButton);
+
 
 const CounterText = styled.span`
 overflow : hidden;
@@ -67,7 +83,7 @@ const MintButton = withStyles({
     background: 'black',
     borderRadius: 3,
     border: 0,
-    color: '#ffbedf;;',
+    color: '#ffbedf;',
     height: 48,
     width : 300,
     fontSize : '20px',

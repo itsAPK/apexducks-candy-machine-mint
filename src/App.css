@@ -12,18 +12,18 @@ html {
 }
 
 body {
-  background-color: #ffbedf;
+  background-color: #FCD3D1;
   color: rgb(12, 12, 12);
   overflow-x: hidden !important;
-  
-  
   
 }
 
 img {
-  width:  250px;
+  
   height: 250px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
+
+
