@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Countdown from "react-countdown";
-import { Button, CircularProgress, Snackbar,withStyles} from "@material-ui/core";
+import { Button, CircularProgress, Snackbar,withStyles,Typography} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 
@@ -21,7 +21,9 @@ import {
   
 } from "./candy-machine";
 
-import logo from './logo.png'
+import logo from './background.png';
+import svglogo from './navlogo.png';
+
 
 const NavBar=styled.nav`
 height: 85px;
@@ -41,7 +43,7 @@ padding:  30px;
 font-weight :  1000;
 font-size : 30px;
 }
-
+ 
 `
  // add your styles here
 
@@ -81,10 +83,10 @@ font-size : 30px;
 const MintButton = withStyles({
   root: {
     background: 'black',
-    borderRadius: 3,
+    borderRadius: 5,
     border: 0,
     color: '#ffbedf;',
-    height: 48,
+    height: 70,
     width : 300,
     fontSize : '20px',
     overflow :'hidden',
@@ -262,8 +264,8 @@ const Home = (props: HomeProps) => {
 
   return (
     <main>
-      <NavBar>APEXDUCKS ™
-
+      <NavBar>
+      <img src={svglogo} alt='apexducks logo' style={{width :"400px", height:"60px"}}/>
       {!wallet.connected ?(<ConnectButton>Connect Wallet</ConnectButton>): (<ConnectButton disabled><TextHeader>{balance} SOL</TextHeader></ConnectButton>)}
       
       </NavBar>
@@ -271,10 +273,10 @@ const Home = (props: HomeProps) => {
       
       <MintContainer>
         
-      {wallet.connected  && (<TextHeader> {redmeed} / {available} NFTs Minted </TextHeader>)}
+     
 
         {wallet.connected  && (
-          <MintButton 
+          <MintButton style={{display : 'inline-block'}}
             disabled={isSoldOut || isMinting || !isActive}
             onClick={onMint}
             variant="contained"
@@ -286,7 +288,13 @@ const Home = (props: HomeProps) => {
               isMinting ? (
                 <CircularProgress />
               ) : (
-                "MINT"
+                <div>
+                  <Typography variant="h4" display="block" style={{fontFamily : 'Segoe UI', fontWeight : 1000, marginBottom: '5px'}}>MINT </Typography>
+                  
+                  <Typography variant="subtitle1" display="block"  style={{fontFamily : 'Segoe UI', fontWeight : 1000, marginBottom: '5px'}}>{redmeed} / {available} NFT Minted</Typography>
+                </div>
+                
+              
               )
             ) : (
               <Countdown

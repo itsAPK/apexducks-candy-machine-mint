@@ -13,14 +13,15 @@ html {
 
 body {
   background-color: #FCD3D1;
+  background-image: url("./background.jpg");
+  background-size: cover;
   color: rgb(12, 12, 12);
   overflow-x: hidden !important;
   
 }
 
 img {
-  
-  height: 250px;
+  height: 320px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
