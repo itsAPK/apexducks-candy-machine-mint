@@ -23,12 +23,12 @@ The Candy-Machine-Mint project is meant to be as simple and usable as possible, 
 
 1. Fork the project, then clone down. Example:
 ```
-git clone git@github.com:exiled-apes/candy-machine-mint.git
+git clone https://github.com/itsAPK/apexducks-candy-machine-mint.git
 ```
 
 2. Build the project. Example:
 ```
-cd candy-machine-mint
+cd apexducks-candy-machine-mint
 yarn install
 yarn build
 ```
